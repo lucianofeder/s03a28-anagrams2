@@ -1,0 +1,23 @@
+const teste = [
+    "sapo",
+    "psoa",
+    "sopa",
+    "ator",
+    "atro",
+    "rato",
+    "rota",
+    "tora",
+    "toar",
+    "saem",
+    "mesa",
+    "emas",
+    "ames",
+    "carro",
+    "corar",
+    "corra",
+    "alegre",
+    "regale",
+    "relega",
+    "greela",
+    "elagre"
+] 
