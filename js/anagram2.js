@@ -90,7 +90,7 @@ function removeDuplicates (combinations) {
 
 
 function getAnagramFromPhrase() {
-    let phrase = 'cachorro'
+    let phrase= 'cachorro'
     let splittedWord = alphabetize(phrase.split(' ').join(''))
     let firstWords = possibleCombinations(splittedWord, 2)
     let combinations = {}
@@ -101,6 +101,29 @@ function getAnagramFromPhrase() {
     console.log(result)
 }
 
+
+function getAnagramFromPhrase3() {
+    let phrase= 'cachorro manco'
+    let splittedWord = alphabetize(phrase.split(' ').join(''))
+    let firstWords = possibleCombinations(splittedWord, 3)
+    let combinations = {}
+    firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
+    // let result = {}
+    // let secondWords = {}
+
+    for (let key in combinations) {
+        let tempLastWord = combinations[key]
+        combinations[key] = possibleCombinations(tempLastWord, 2)
+        combinations[key].forEach(wordSecond => combinations[key][wordSecond] = filterPhraseFromCombination(wordSecond, tempLastWord))
+        combinations[key] = removeDuplicates(combinations[key])
+        if (palavrasObject[key] === undefined) {
+            delete combinations[key]
+        }   
+    }
+
+    console.log(firstWords)
+    return combinations
+}
 
 
 let palavrasObject = getAllAnagrams(palavras)
