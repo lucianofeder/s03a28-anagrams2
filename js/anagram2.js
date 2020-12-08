@@ -103,13 +103,12 @@ function getAnagramFromPhrase() {
 
 
 function getAnagramFromPhrase3() {
-    let phrase= 'cachorro manco'
+    let phrase= 'cachorro'
     let splittedWord = alphabetize(phrase.split(' ').join(''))
     let firstWords = possibleCombinations(splittedWord, 3)
     let combinations = {}
     firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
-    // let result = {}
-    // let secondWords = {}
+    let result = {}
 
     for (let key in combinations) {
         let tempLastWord = combinations[key]
@@ -118,10 +117,25 @@ function getAnagramFromPhrase3() {
         combinations[key] = removeDuplicates(combinations[key])
         if (palavrasObject[key] === undefined) {
             delete combinations[key]
-        }   
+        } else {
+            result[palavrasObject[key]] = combinations[key]
+        }
+         
     }
 
-    console.log(firstWords)
+    for (let key in result) {
+        for (let secondkey in result[key]) {
+            console.log(secondkey)
+            if (result[secondkey] != undefined) {
+                delete result[key]
+                break
+            }
+        }
+    }
+
+
+    console.log(result)
+
     return combinations
 }
 
