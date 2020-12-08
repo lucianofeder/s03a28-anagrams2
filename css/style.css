@@ -1,0 +1,78 @@
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,
+a, img, ol, ul, li, form,
+label, article, aside, figure,
+figcaption, footer, header, menu, nav, textarea
+{
+	margin: 0;
+	padding: 0;
+    border: 0;
+    outline: 0;
+	font-size: 100%;
+	font: inherit;
+    vertical-align: baseline;
+	box-sizing: border-box;
+	font-family: Helvetica, Arial, sans-serif;
+}
+article, aside, figcaption, figure, 
+footer, header, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+
+main {
+    margin: 0 auto;
+    background-color: #ccc;
+    width: 700px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+main h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem;
+}
+
+main button {
+    padding: 0.7rem;
+    margin: 10px;
+    width: 200px;
+}
+
+main h2 {
+    margin: 20px 10px 10px 0px;
+    font-size: 1.2rem;
+}
+
+main input {
+    width: 300px;
+    height: 20px;
+    margin: 10px; 
+}
+
+main div#result {
+    padding: 15px;
+    font-size: 0.9rem;
+    background-color: whitesmoke;
+    width: 90vw;
+    max-width: 650px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main div#result span {
+    line-height: 1.2rem;
+}
+
+

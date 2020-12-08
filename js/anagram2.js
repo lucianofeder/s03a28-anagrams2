@@ -2,7 +2,8 @@ function alphabetize(a) {
     return a.toLowerCase().split("").sort().join("").trim()
  }
 
-function getAllAnagrams(arr) {
+function getAllAnagrams() {
+    let arr = palavras
     let start = new Date()
     let palavrasSortedObject = {}
     for (let word in arr) {
@@ -32,9 +33,16 @@ function getSetsOfFiveAnagrams() {
         }
     }
 
-    console.log(result)
+    let divResultado = document.getElementById('result')
+    divResultado.innerHTML = ''
+    for (let word in result) {
+        let span = document.createElement('span')
+        span.innerText = result[word]
+        divResultado.appendChild(span)
+    }
 
 }
+
 
 function possibleCombinations(str='fraseteste', amountOfSlices) {
 
@@ -90,54 +98,102 @@ function removeDuplicates (combinations) {
 
 
 function getAnagramFromPhrase() {
-    let phrase= 'cachorro'
-    let splittedWord = alphabetize(phrase.split(' ').join(''))
-    let firstWords = possibleCombinations(splittedWord, 2)
-    let combinations = {}
-    firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
+    let phrase = document.getElementById('inputToAnagram').value
 
-    let result = removeDuplicates(combinations)
+    if (phrase === '') {
+        window.alert('Digite algum texto para fazer a busca')
+    } else {
+        let splittedWord = alphabetize(phrase.split(' ').join(''))
+        let firstWords = possibleCombinations(splittedWord, 2)
+        let combinations = {}
+        firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
+    
+        let result = removeDuplicates(combinations)
+        console.log(result)
+    
+        let divResultado = document.getElementById('result')
+        divResultado.innerHTML = ''
+    
+        for (let word in result) {
+            let span = document.createElement('span')
+            span.innerText = `(${word}) + (${result[word]})`
+            divResultado.appendChild(span)
+        }
+    
+        if (document.querySelector('main div#result span') === null) {
+            let span = document.createElement('span')
+            span.innerText = 'A string digitada nao possui as combinacoes desejadas'
+            divResultado.appendChild(span)
+        }
+    }
 
-    console.log(result)
 }
 
 
 function getAnagramFromPhrase3() {
-    let phrase= 'cachorro'
-    let splittedWord = alphabetize(phrase.split(' ').join(''))
-    let firstWords = possibleCombinations(splittedWord, 3)
-    let combinations = {}
-    firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
-    let result = {}
+    let phrase= document.getElementById('inputToAnagram').value
+    console.log(phrase)
+    if (phrase === '') {
+        window.alert('Digite algum texto para fazer a busca')
+    } else {
+        let splittedWord = alphabetize(phrase.split(' ').join(''))
+        let firstWords = possibleCombinations(splittedWord, 3)
+        let combinations = {}
+        firstWords.forEach(word => combinations[word] = filterPhraseFromCombination(word, splittedWord))
+        let result = {}
 
-    for (let key in combinations) {
-        let tempLastWord = combinations[key]
-        combinations[key] = possibleCombinations(tempLastWord, 2)
-        combinations[key].forEach(wordSecond => combinations[key][wordSecond] = filterPhraseFromCombination(wordSecond, tempLastWord))
-        combinations[key] = removeDuplicates(combinations[key])
-        if (palavrasObject[key] === undefined) {
-            delete combinations[key]
-        } else {
-            result[palavrasObject[key]] = combinations[key]
+        for (let key in combinations) {
+            let tempLastWord = combinations[key]
+            combinations[key] = possibleCombinations(tempLastWord, 2)
+            combinations[key].forEach(wordSecond => combinations[key][wordSecond] = filterPhraseFromCombination(wordSecond, tempLastWord))
+            combinations[key] = removeDuplicates(combinations[key])
+            if (palavrasObject[key] === undefined) {
+                delete combinations[key]
+            } else {
+                result[palavrasObject[key]] = combinations[key]
+            }
+            
         }
-         
-    }
 
-    for (let key in result) {
-        for (let secondkey in result[key]) {
-            console.log(secondkey)
-            if (result[secondkey] != undefined) {
-                delete result[key]
-                break
+        //filtering duplicates from result
+        for (let key in result) {
+            for (let secondkey in result[key]) {
+                if (result[secondkey] != undefined) {
+                    delete result[key]
+                    break
+                }
             }
         }
+
+        let divResultado = document.getElementById('result')
+        divResultado.innerHTML = ''
+        console.log(result)
+
+        for (let word in result) {
+            for (let secondWord in result[word]){
+                let span = document.createElement('span')
+                span.innerText = `(${word}) + (${secondWord}) + (${result[word][secondWord]})`
+                divResultado.appendChild(span)
+            }
+
+        }
+        if (document.querySelector('main div#result span') === null) {
+            let span = document.createElement('span')
+            span.innerText = 'A string digitada nao possui as combinacoes desejadas'
+            divResultado.appendChild(span)
+        }
+
     }
-
-
-    console.log(result)
-
-    return combinations
+    
 }
 
-
 let palavrasObject = getAllAnagrams(palavras)
+
+let btnGetAllAnagrams = document.getElementById('getAllAnagramsGreater5')
+btnGetAllAnagrams.addEventListener('click', getSetsOfFiveAnagrams)
+
+let btnGetTwoAnagrams = document.getElementById('getTwoAnagrams')
+btnGetTwoAnagrams.addEventListener('click', getAnagramFromPhrase)
+
+let btnGetThreeAnagrams = document.getElementById('getThreeAnagrams')
+btnGetThreeAnagrams.addEventListener('click', getAnagramFromPhrase3)
